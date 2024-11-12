@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SendImage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <section class = "showcase">
+    <header>
+        <h1 class = "logo">小島Project</h1>
+        <div class="toggle"></div>
+    </header>
+    
+
+   <video src="/movies/風船.MP4" autoplay loop muted></video>
+   <div class="text">
+    <h2>風船を飛ばそう</h2>
+    <h3>ボタンを押すと映像に風船を飛ばせるよ</h3>
+    <button id="balloonButton">風船を飛ばす</button>
+   </div>
+
+   </section>
+<!-- Socket.ioのクライアントスクリプトを読み込む -->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    // ボタンが押されたときに風船を飛ばすデータを送信
+    const button = document.getElementById('balloonButton');
+    button.addEventListener('click', () => {
+        const balloonData = {
+            x: Math.random() * window.innerWidth,
+            y: window.innerHeight
+        };
+        socket.emit('sendBalloon', balloonData);  // サーバーに風船のデータを送信
+    });
+</script>
+
+   <ul class="social">
+    <li><a href="#"><img src="" alt=""></a></li>
+   </ul>
+</body>
+</html>
